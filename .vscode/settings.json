@@ -1,0 +1,10 @@
+{
+  "workbench.colorCustomizations": {
+    "activityBar.background": "#452040",
+    "titleBar.activeBackground": "#612C5A",
+    "titleBar.activeForeground": "#FCF9FC"
+  },
+  "files.associations": {
+    "vector": "cpp"
+  }
+}
