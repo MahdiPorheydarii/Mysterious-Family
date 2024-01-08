@@ -1,6 +1,6 @@
 import networkx as nx
 import dash
-from dash.dependencies import dcc, html
+from dash import dcc, html
 import matplotlib.pyplot as plt
 from src.plot import plot_family_tree, graph_to_plotly
 from src.Tree import family
@@ -9,9 +9,10 @@ fam = family()
 
 graph = nx.DiGraph()
 pos = plot_family_tree(fam.root, graph=graph)
-labels = {node: node.hash for node in graph.nodes()}
+labels = {node: node.name for node in graph.nodes()}
 nx.draw(graph, pos=pos, with_labels=True, labels=labels, node_size=1500, node_color="#33FFC1", font_size=10)
 plt.show()
+# print(fam.lca())
 
 
 app = dash.Dash(__name__)

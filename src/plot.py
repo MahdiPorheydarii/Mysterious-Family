@@ -24,7 +24,7 @@ def graph_to_plotly(graph, pos):
         edge_x += [pos[edge[0]][0], pos[edge[1]][0], None]
         edge_y += [pos[edge[0]][1], pos[edge[1]][1], None]
 
-    node_x, node_y, node_text = zip(*[(pos[node][0], pos[node][1], node.hash) for node in graph.nodes()])
+    node_x, node_y, node_text = zip(*[(pos[node][0], pos[node][1], node.name) for node in graph.nodes()])
 
     edge_trace = go.Scatter(x=edge_x, y=edge_y, line=dict(width=0.5, color='#777'), hoverinfo='none', mode='lines')
 

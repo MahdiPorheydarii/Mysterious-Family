@@ -1,4 +1,4 @@
-from classes import Tree, Node
+from .Classes import Tree, Node
 
 def family():
     john = Node("John")

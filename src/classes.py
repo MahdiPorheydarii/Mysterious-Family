@@ -1,4 +1,4 @@
-from hash import sha256
+from .hash import sha256
 from collections import deque
 
 class TrieNode:
@@ -30,7 +30,7 @@ class Trie:
 
 class Node:
     def __init__(self, name=None):
-        self.name = sha256(name.encode('utf-8')).hexdigest()
+        self.name = sha256(name.encode("utf-8"))
         self.children = []
         self.parents = []
 
