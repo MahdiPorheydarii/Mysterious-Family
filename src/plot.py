@@ -1,20 +1,38 @@
 import networkx as nx
 import plotly.graph_objects as go
 
-def plot_family_tree(person, graph=None, pos=None, level=0, width=1., vert_gap=0.4, xcenter=0.5):
+def plot_family_tree(person, graph=None, pos=None, level=0, width=1., vert_gap=0.4, xcenter=0.5, visited=None):
+    if visited is None:
+        visited = set()
+
+    if person in visited:
+        return pos
+
     if pos is None:
         pos = {person: (xcenter, 1 - level * vert_gap)}
     else:
         pos[person] = (xcenter, 1 - level * vert_gap)
+
+    visited.add(person)
     neighbors = person.children
+
+    tmp = []
+
+    for i in neighbors:
+        tmp += i.parents
+    neighbors += tmp
+
+
     if len(neighbors) != 0:
         dx = width / 2
         nextx = xcenter - width/2 - dx/2
         for neighbor in neighbors:
             nextx += dx
             pos = plot_family_tree(neighbor, graph=graph, pos=pos,
-                                level=level+1, width=dx, xcenter=nextx)
-            graph.add_edge(person, neighbor)
+                                   level=level+1, width=dx, xcenter=nextx, visited=visited)
+            if person != neighbor:
+                graph.add_edge(person, neighbor)
+
     return pos
 
 def graph_to_plotly(graph, pos):

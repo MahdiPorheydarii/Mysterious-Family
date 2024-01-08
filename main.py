@@ -12,7 +12,6 @@ pos = plot_family_tree(fam.root, graph=graph)
 labels = {node: node.name for node in graph.nodes()}
 nx.draw(graph, pos=pos, with_labels=True, labels=labels, node_size=1500, node_color="#33FFC1", font_size=10)
 plt.show()
-# print(fam.lca())
 
 
 app = dash.Dash(__name__)

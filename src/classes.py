@@ -30,7 +30,8 @@ class Trie:
 
 class Node:
     def __init__(self, name=None):
-        self.name = sha256(name.encode("utf-8"))
+        # self.name = sha256(name.encode("utf-8"))
+        self.name = name
         self.children = []
         self.parents = []
 
@@ -69,7 +70,7 @@ class Tree:
         while queue:
             current_node = queue.popleft()
             if current_node in visited_ancestors:
-                return current_node
+                return current_node.name
             for parent in current_node.parents:
                 queue.append(parent)
 
