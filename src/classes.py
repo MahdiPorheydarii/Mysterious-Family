@@ -1,4 +1,5 @@
-from hashlib import sha256
+from hash import sha256
+from collections import deque
 
 class TrieNode:
     def __init__(self):
@@ -23,9 +24,9 @@ class Trie:
         trie_node = self.root
         for char in word:
             if char not in trie_node.children:
-                return False, None
+                return None
             trie_node = trie_node.children[char]
-        return trie_node.is_end_of_word, trie_node.node
+        return trie_node.node
 
 class Node:
     def __init__(self, name=None):
@@ -49,6 +50,27 @@ class Tree:
         return self.trie.search(node.name)
 
     def delete(self, node):
-        is_end_of_word, trie_node = self.find(node)
-        if is_end_of_word:
+        trie_node = self.find(node)
+        if trie_node:
             trie_node.name = None
+    
+    def lca(self, node1, node2):
+        visited_ancestors = set()
+
+        def dfs_ancestors(current_node):
+            visited_ancestors.add(current_node)
+            for parent in current_node.parents:
+                if parent not in visited_ancestors:
+                    dfs_ancestors(parent)
+
+        dfs_ancestors(node1)
+
+        queue = deque([node2])
+        while queue:
+            current_node = queue.popleft()
+            if current_node in visited_ancestors:
+                return current_node
+            for parent in current_node.parents:
+                queue.append(parent)
+
+        return None
