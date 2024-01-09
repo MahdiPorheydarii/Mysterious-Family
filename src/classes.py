@@ -40,6 +40,7 @@ class Tree:
         self.root = root
         self.size = 1
         self.trie = Trie()
+        self.trie.insert(root.name, root)
 
     def add(self, parent, child):
         parent.children.append(child)
@@ -54,6 +55,7 @@ class Tree:
         trie_node = self.find(node)
         if trie_node:
             trie_node.name = None
+            self.size -= 1
     
     def lca(self, node1, node2):
         visited_ancestors = set()
@@ -75,3 +77,33 @@ class Tree:
                 queue.append(parent)
 
         return None
+
+    def is_related(self, node1, node2):
+        ancestors1 = set()
+
+        def get_ancestors(node, ancestors_set):
+            for parent in node.parents:
+                ancestors_set.add(parent)
+                get_ancestors(parent, ancestors_set)
+
+        get_ancestors(node1, ancestors1)
+
+        for ancestor in ancestors1:
+            if node2 in ancestor.children:
+                return True
+
+        ancestors2 = set()
+        get_ancestors(node2, ancestors2)
+
+        for ancestor in ancestors2:
+            if node1 in ancestor.children:
+                return True
+
+        return False
+    
+    def farthest_child(self, node):
+        if len(node.children) == 0:
+            return 0
+
+        child_heights = [self.farthest_child(child) for child in node.children if child.name != node.name]
+        return 1 + max(child_heights)

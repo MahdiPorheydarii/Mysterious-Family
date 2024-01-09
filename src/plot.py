@@ -38,6 +38,7 @@ def plot_family_tree(person, graph=None, pos=None, level=0, width=1., vert_gap=0
 def graph_to_plotly(graph, pos):
     edge_x = []
     edge_y = []
+
     for edge in graph.edges():
         edge_x += [pos[edge[0]][0], pos[edge[1]][0], None]
         edge_y += [pos[edge[0]][1], pos[edge[1]][1], None]
@@ -50,10 +51,14 @@ def graph_to_plotly(graph, pos):
         x=node_x, y=node_y, mode='markers',
         hoverinfo='text',
         text=node_text,
+        marker=dict(
+            size=9,
+            color="green"
+        )
     )
 
     annotations = [dict(x=x, y=y, xref='x', yref='y', text=text, showarrow=True, arrowhead=4, ax=0, ay=-20) for x, y, text in zip(node_x, node_y, node_text)]
 
     fig = go.Figure(data=[edge_trace, node_trace], layout=go.Layout(showlegend=False, hovermode='closest', margin=dict(b=0, l=0, r=0, t=0), xaxis=dict(showgrid=False, zeroline=False, showticklabels=False), yaxis=dict(showgrid=False, zeroline=False, showticklabels=False), annotations=annotations))
-    
+
     return fig
