@@ -45,7 +45,7 @@ app.layout = dbc.Container(
                 html.Button('Submit', id='submit-button', className="btn btn-primary mb-2"),
                 width=2
             ),
-            dbc.Col(html.Div(id='output-farthest-child'), width=2),
+            dbc.Col(html.Div(id='output-farthest-child', className="text-success"), width=2),
         ]),
     ]
 

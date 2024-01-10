@@ -27,6 +27,24 @@ class Trie:
                 return None
             trie_node = trie_node.children[char]
         return trie_node.node
+    
+    def delete(self, word):
+        self.delete_do(self.root, word, 0)
+
+    def delete_do(self, current_node, word, index):
+        if index == len(word):
+            if current_node.is_end_of_word:
+                current_node.is_end_of_word = False
+                current_node.node = None
+            return
+
+        char = word[index]
+
+        next_node = current_node.children[char]
+        self.delete_do(next_node, word, index + 1)
+
+        if not next_node.is_end_of_word and not next_node.children:
+            del current_node.children[char]
 
 class Node:
     def __init__(self, name=None):
@@ -55,6 +73,7 @@ class Tree:
         trie_node = self.find(node)
         if trie_node:
             trie_node.name = None
+            self.trie.delete(node.name)
             self.size -= 1
     
     def lca(self, node1, node2):
