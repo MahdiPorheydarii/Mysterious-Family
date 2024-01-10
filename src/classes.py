@@ -72,11 +72,14 @@ class Tree:
     def delete(self, node):
         trie_node = self.find(node)
         if trie_node:
-            trie_node.name = None
             self.trie.delete(node.name)
+            trie_node.name = None
             self.size -= 1
     
     def lca(self, node1, node2):
+        if node1 == None or node2 == None:
+            return None
+        
         visited_ancestors = set()
 
         def dfs_ancestors(current_node):
@@ -97,7 +100,7 @@ class Tree:
 
         return None
 
-    def is_related(self, node1, node2):
+    def are_related(self, node1, node2):
         ancestors1 = set()
 
         def get_ancestors(node, ancestors_set):

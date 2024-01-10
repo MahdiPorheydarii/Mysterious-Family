@@ -16,11 +16,11 @@ def plot_family_tree(person, graph=None, pos=None, level=0, width=1., vert_gap=0
     visited.add(person)
     neighbors = person.children
 
-    tmp = []
+    # tmp = []
 
-    for i in neighbors:
-        tmp += i.parents
-    neighbors += tmp
+    # for i in neighbors:
+    #     tmp += i.parents
+    # neighbors += tmp
 
 
     if len(neighbors) != 0:
