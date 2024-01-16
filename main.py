@@ -38,16 +38,16 @@ app.layout = dbc.Container(
         dcc.Graph(id='family-tree-graph', figure=graph_to_plotly(graph, pos),),
         
         dbc.Row([
-            dbc.Col(html.Label("Find the Farthest Child of a node:"), width=2),
+            dbc.Col(html.Label("Find the Farthest Child of a node:"), width=3),
             dbc.Col(
                 dbc.Input(id='input-node', type='text', placeholder='Enter node name...', className="form-control-plaintext mb-2"),
-                width=3
+                width=2
             ),
             dbc.Col(
                 html.Button('Find Farthest Child', id='submit-button', className="btn btn-primary mb-2"),
                 width=2
             ),
-            dbc.Col(html.Div(id='output-farthest-child', className="text-success"), width=2),
+            dbc.Col(html.Div(id='output-farthest-child', className="text-info"), width=2),
         ]),
         dbc.Row([
             dbc.Col(html.Label("Find the Lowest Common Ancestor of two nodes:"), width=3),
@@ -63,7 +63,7 @@ app.layout = dbc.Container(
                 html.Button('Find LCA', id='lca-button', className="btn btn-primary mb-2"),
                 width=2
             ),
-            dbc.Col(html.Div(id='output-lca', className="text-success"), width=2),
+            dbc.Col(html.Div(id='output-lca', className="text-info"), width=2),
         ]),
         dbc.Row([
             dbc.Col(html.Label("Check Relationship Between Two Nodes:"), width=3),
@@ -97,18 +97,18 @@ app.layout = dbc.Container(
         dbc.Row([
             dbc.Col(html.Label("Add a new node:"), width=3),
             dbc.Col(
-                dbc.Input(id='input-parent', type='text', placeholder='Parent name', className="form-control-plaintext mb-2"),
+                dbc.Input(id='input-parent', type='text', placeholder='Parent node', className="form-control-plaintext mb-2"),
                 width=1
             ),
             dbc.Col(
-                dbc.Input(id='input-new-node', type='text', placeholder='New node name', className="form-control-plaintext mb-2"),
+                dbc.Input(id='input-new-node', type='text', placeholder='New node', className="form-control-plaintext mb-2"),
                 width=1
             ),
             dbc.Col(
                 html.Button('Add Node', id='add-node-button', className="btn btn-success mb-2"),
                 width=2
             ),
-            dbc.Col(html.Div(id='output-add-node', className="text-info"), width=2),
+            dbc.Col(html.Div(id='output-add-node', className="text-success"), width=2),
         ]),
         dbc.Row([
             dbc.Col(
