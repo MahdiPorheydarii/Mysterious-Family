@@ -23,3 +23,5 @@ def family():
     family_tree.add(Jane, Sarah)
     
     return family_tree
+
+fam = family()

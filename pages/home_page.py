@@ -1,17 +1,14 @@
 import dash
 from dash import dcc, html, Input, Output
 import dash_bootstrap_components as dbc
-import networkx as nx
 from .template import navbar, header
 from src.plot import plot_family_tree, graph_to_plotly
-from src.Tree import family
 from dash.exceptions import PreventUpdate
 from dash.dependencies import State
 from src.Classes import Node
+from .instance import fam, graph
 
-fam = family()
 
-graph = nx.DiGraph()
 pos = plot_family_tree(fam.root, graph=graph)
 labels = {node: node.name for node in graph.nodes()}
 
@@ -117,7 +114,8 @@ home_layout = dbc.Container(
 def home_callbacks(app):
     app.layout = html.Div([
         dcc.Location(id='url', refresh=False),
-        html.Div(id='page-content')
+        html.Div(id='page-content'),
+        html.Div(id='output-data-upload'),
     ])
 
     @app.callback(

@@ -13,7 +13,7 @@ app.config.prevent_initial_callbacks = 'initial_duplicate'
 
 app.layout = html.Div([
     dcc.Location(id='url', refresh=False),
-    html.Div(id='page-content')
+    html.Div(id='page-content'),
 ])
 
 home_callbacks(app)

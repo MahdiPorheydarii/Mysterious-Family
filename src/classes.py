@@ -129,3 +129,14 @@ class Tree:
 
         child_heights = [self.farthest_child(child) for child in node.children if child.name != node.name]
         return 1 + max(child_heights)
+    
+    def import_tree(self, root, pairs):
+        self.root = Node(root)
+        self.trie = Trie()
+        self.trie.insert(root, self.root)
+        self.size = 1
+
+        pairs = [i.split() for i in pairs]
+
+        for i in pairs:
+            self.add(self.find(Node(i[0])), Node(i[1]))
