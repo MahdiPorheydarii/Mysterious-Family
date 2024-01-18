@@ -8,6 +8,7 @@ navbar = dbc.Navbar(
             [
                 dbc.NavItem(dbc.NavLink("Home", href="/")),
                 dbc.NavItem(dbc.NavLink("Import Tree", href="/import_tree")),
+                dbc.NavItem(dbc.NavLink("Info", href="/info")),
             ],
             className="ml-auto",
             navbar=True,
