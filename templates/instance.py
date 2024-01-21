@@ -1,4 +1,4 @@
-from ..libs.tree import family
+from libs.tree import family
 import networkx as nx
 
 fam = family()

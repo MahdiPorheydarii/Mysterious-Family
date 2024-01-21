@@ -2,9 +2,9 @@ import dash
 from dash import dcc, html, Input, Output, State
 import dash_bootstrap_components as dbc
 from .template import navbar, header
-from ..libs.plot import plot_family_tree, graph_to_plotly
+from libs.plot import plot_family_tree, graph_to_plotly
 from dash.exceptions import PreventUpdate
-from ..classes.Tree import Node
+from classes.Tree import Node
 from .instance import fam, graph
 
 

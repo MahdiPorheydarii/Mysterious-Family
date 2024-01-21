@@ -1,4 +1,4 @@
-from ..libs.hash import sha256
+from libs.hash import sha256
 from collections import deque
 from .Trie import Trie
 
