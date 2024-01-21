@@ -3,7 +3,7 @@ import dash_bootstrap_components as dbc
 
 navbar = dbc.Navbar(
     [
-        dbc.NavbarBrand("Mysterious Family"),
+        dbc.NavbarBrand("Mysterious Family",style={'margin-left' : '13px'}),
         dbc.Nav(
             [
                 dbc.NavItem(dbc.NavLink("Home", href="/")),

@@ -8,7 +8,7 @@ from pages.import_tree import import_tree_layout, import_tree_callbacks
 
 app = dash.Dash(__name__, external_stylesheets=[dbc.themes.VAPOR], suppress_callback_exceptions=True)
 app.config.prevent_initial_callbacks = 'initial_duplicate'
-
+app.title = "Mysterious Family"
 
 
 app.layout = html.Div([
