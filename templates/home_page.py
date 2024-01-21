@@ -1,11 +1,10 @@
 import dash
-from dash import dcc, html, Input, Output
+from dash import dcc, html, Input, Output, State
 import dash_bootstrap_components as dbc
 from .template import navbar, header
-from src.plot import plot_family_tree, graph_to_plotly
+from ..libs.plot import plot_family_tree, graph_to_plotly
 from dash.exceptions import PreventUpdate
-from dash.dependencies import State
-from src.Classes import Node
+from ..classes.Tree import Node
 from .instance import fam, graph
 
 
@@ -18,8 +17,8 @@ home_layout = dbc.Container(
     children=[
         navbar,
         header,
-        dcc.Graph(id='family-tree-graph', figure=graph_to_plotly(graph, pos),),
-
+        dcc.Graph(id='family-tree-graph', figure=graph_to_plotly(graph, pos),style={'width': '100%', 'height': '500px'}),
+        html.Button('Fullscreen', id='fullscreen-btn', className="btn btn-secondary mb-2"),
         dbc.Row([
             dbc.Col(html.Label("Find the Farthest Child of a node:"), width=3),
             dbc.Col(
@@ -117,6 +116,36 @@ def home_callbacks(app):
         html.Div(id='page-content'),
         html.Div(id='output-data-upload'),
     ])
+    app.clientside_callback(
+    """
+    function(isFullScreen) {
+        var graph = document.getElementById('family-tree-graph');
+        if (isFullScreen) {
+            if (graph.requestFullscreen) {
+                graph.requestFullscreen();
+            } else if (graph.mozRequestFullScreen) { // Firefox
+                graph.mozRequestFullScreen();
+            } else if (graph.webkitRequestFullscreen) { // Chrome, Safari and Opera
+                graph.webkitRequestFullscreen();
+            } else if (graph.msRequestFullscreen) { // IE/Edge
+                graph.msRequestFullscreen();
+            }
+        } else {
+            if (document.exitFullscreen) {
+                document.exitFullscreen();
+            } else if (document.mozCancelFullScreen) { // Firefox
+                document.mozCancelFullScreen();
+            } else if (document.webkitExitFullscreen) { // Chrome, Safari and Opera
+                document.webkitExitFullscreen();
+            } else if (document.msExitFullscreen) { // IE/Edge
+                document.msExitFullscreen();
+            }
+        }
+    }
+    """,
+    Output('family-tree-graph', 'fullscreen_mode'),
+    Input('fullscreen-btn', 'n_clicks')
+)
 
     @app.callback(
         Output('output-check-node', 'children'),
