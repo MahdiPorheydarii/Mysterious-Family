@@ -79,4 +79,8 @@ class Tree:
         pairs = [i.split() for i in pairs]
 
         for i in pairs:
-            self.add(self.find(Node(i[0])), Node(i[1]))
+            tmp = self.find(Node(i[1]))
+            if tmp:
+                self.add(self.find(Node(i[0])), tmp)
+            else:
+                self.add(self.find(Node(i[0])), Node(i[1]))

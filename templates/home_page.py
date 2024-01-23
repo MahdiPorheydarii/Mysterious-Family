@@ -154,7 +154,7 @@ def home_callbacks(app):
     )
     def check_node_existence(n_clicks, input_check_node):
         if input_check_node:
-            node_exists = fam.find(Node(input_check_node)) is not None
+            node_exists = fam.find(Node(input_check_node))
             existence_message = f"Node '{input_check_node}' exists." if node_exists else f"Node '{input_check_node}' does not exist."
             return existence_message
 
@@ -184,8 +184,8 @@ def home_callbacks(app):
     @app.callback(
         Output('output-rel-relationship', 'children'),
         [Input('rel-button', 'n_clicks')],
-        [dash.dependencies.State('input-rel-node1', 'value'),
-        dash.dependencies.State('input-rel-node2', 'value')]
+        [State('input-rel-node1', 'value'),
+        State('input-rel-node2', 'value')]
     )
     def update_relationship_output(n_clicks, input_rel_node1, input_rel_node2):
         if n_clicks is None:
@@ -201,8 +201,8 @@ def home_callbacks(app):
         [Output('output-add-node', 'children'),
         Output('family-tree-graph', 'figure', allow_duplicate=True)],
         [Input('add-node-button', 'n_clicks')],
-        [dash.dependencies.State('input-parent', 'value'),
-        dash.dependencies.State('input-new-node', 'value')]
+        [State('input-parent', 'value'),
+        State('input-new-node', 'value')]
     )
     def add_new_node(n_clicks, input_parent, input_new_node):
         if input_parent and input_new_node:
