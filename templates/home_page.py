@@ -107,6 +107,17 @@ home_layout = dbc.Container(
             ),
             dbc.Col(html.Div(id='output-delete-node', className="text-danger"), width=2),
         ]),
+                dbc.Row([
+            dbc.Col(
+                html.Label("Size of the tree:"),
+                width=3
+            ),
+            dbc.Col(
+                html.Button('Get Size of the tree', id='size-button', className="btn btn-info mb-2"),
+                width=2
+            ),
+            dbc.Col(html.Div(id='output-size', className="text-info"), width=2),
+        ]),
     ]
 )
 
@@ -248,3 +259,10 @@ def home_callbacks(app):
             return f"Farthest child of {input_node}: {farthest_child}"
 
         return None
+    @app.callback(
+        Output('output-size', 'children'),
+        [Input('size-button', 'n_clicks')],
+    )
+    def update_size(n_clicks):
+        if n_clicks:
+            return f"Size of the Tree is : {fam.size}"

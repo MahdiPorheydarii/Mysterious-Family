@@ -27,7 +27,7 @@ class Trie:
     
     def delete(self, word):
         self.delete_do(self.root, word, 0)
-
+        
     def delete_do(self, current_node, word, index):
         if index == len(word):
             if current_node.is_end_of_word:
