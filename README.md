@@ -29,6 +29,7 @@ This project aims to store and represent a family tree using a tree data structu
 
 - Python 3.x
 - Flask (for the web application)
+- Dash
 
 ### Installation
 
@@ -45,27 +46,17 @@ This project aims to store and represent a family tree using a tree data structu
     pip install -r requirements.txt
     ```
 
-## Usage
-
-yet to be determined
-
 ## Web Application
 
 To run the web application and visualize the family tree:
 
-1. Navigate to the `web_app` directory:
+1. Run the Dash app:
 
     ```bash
-    cd web_app
+    python main.py
     ```
 
-2. Run the Flask app:
-
-    ```bash
-    flask run
-    ```
-
-3. Open your web browser and go to `http://127.0.0.1:5000/` to view the family tree.
+2. Open your web browser and go to `http://127.0.0.1:5000/` to view the family tree.
 
 ## Contributing
 Thank you for considering contributing to the Family Tree project!

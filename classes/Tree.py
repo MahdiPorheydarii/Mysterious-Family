@@ -84,4 +84,4 @@ class Tree:
                 self.add(self.find(Node(i[0])), tmp)
             else:
                 self.add(self.find(Node(i[0])), Node(i[1]))
-    def 
+                
