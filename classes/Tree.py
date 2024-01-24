@@ -93,4 +93,10 @@ class Tree:
         else:
             self.is_ancestor(node1, node2.parents[0])
         return False
-
+    
+    def is_siblings(self,node1, node2):
+        parent1 = node1.parents[0]
+        parent2 = node2.parentsp[0]
+        if parent1 == parent2:
+            return True
+        return False
