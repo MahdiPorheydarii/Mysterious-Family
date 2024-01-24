@@ -95,6 +95,17 @@ home_layout = dbc.Container(
             ),
             dbc.Col(html.Div(id='output-rel-relationship', className="text-info"), width=2),
         ]),
+        dbc.Row([
+            dbc.Col(
+                html.Label("Find two Furthest nodes:"),
+                width=3
+            ),
+            dbc.Col(
+                html.Button('Find two furthest nodes', id='far-button', className="btn btn-info mb-2"),
+                width=2
+            ),
+            dbc.Col(html.Div(id='output-far', className="text-info"), width=2),
+        ]),
         dbc.Row(html.Div(style={'height': '20px'})),
         dbc.Row([
             dbc.Col(html.Label("Check if a Node Exists:"), width=3),
@@ -139,7 +150,7 @@ home_layout = dbc.Container(
             ),
             dbc.Col(html.Div(id='output-delete-node', className="text-danger"), width=2),
         ]),
-                dbc.Row([
+        dbc.Row([
             dbc.Col(
                 html.Label("Size of the tree:"),
                 width=3
@@ -325,3 +336,11 @@ def home_callbacks(app):
     def update_size(n_clicks):
         if n_clicks:
             return f"Size of the Tree is : {fam.size}"
+    
+    @app.callback(
+        Output('output-far', 'children'),
+        [Input('far-button', 'n_clicks')],
+    )
+    def update_size(n_clicks):
+        if n_clicks:
+            return f"The two furthest nodes: {fam.two_furthest()}"

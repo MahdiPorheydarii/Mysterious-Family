@@ -93,3 +93,37 @@ class Tree:
     
     def is_siblings(self,node1, node2):
         return (node1 in [x for j in node2.parents for x in j.children]) or (node2 in [x for j in node1.parents for x in j.children])
+    
+    def two_furthest(self):
+        def dfs(node, distances, visited):
+            visited.add(node)
+            
+            if not node.children:
+                distances[node] = 0
+                return 0, node
+
+            farthest = None
+            max_dist = 0
+
+            for child in node.children:
+                if child not in visited:
+                    dist, child_leaf = dfs(child, distances, visited)
+                    if dist + 1 > max_dist:
+                        max_dist = dist + 1
+                        farthest = child_leaf
+
+            distances[node] = max_dist
+            return max_dist, farthest
+
+        distances_from_root = {}
+        _, farthest = dfs(self.root, distances_from_root, set())
+        
+        _, far2 = dfs(self.root, distances_from_root, set(self.one_root([farthest])))
+        
+        return farthest.name, far2.name
+    
+    
+    def one_root(self, node):
+        if self.root in [x for j in node for x in j.parents]:
+            return node
+        return self.one_root([x for j in node for x in j.parents])
