@@ -88,11 +88,12 @@ class Tree:
     def is_ancestor(self, node1, node2):
         if node1 == None or node2 == None:
             return None
-        if node1 == node2.parents[0]:
-            return True
-        else:
-            self.is_ancestor(node1, node2.parents[0])
-        return False
+        for parent in node1.parents:
+            if  parent == node2:
+                return True
+            else:
+                self.is_ancestor(node1, node2.parents[i])
+            return False
     
     def is_siblings(self,node1, node2):
         parent1 = node1.parents[0]
