@@ -84,4 +84,13 @@ class Tree:
                 self.add(self.find(Node(i[0])), tmp)
             else:
                 self.add(self.find(Node(i[0])), Node(i[1]))
-                
+        
+    def is_ancestor(self, node1, node2):
+        if node1 == None or node2 == None:
+            return None
+        if node1 == node2.parents[0]:
+            return True
+        else:
+            self.is_ancestor(node1, node2.parents[0])
+        return False
+
