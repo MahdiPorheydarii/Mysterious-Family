@@ -60,7 +60,6 @@ class Tree:
 
     def are_related(self, node1, node2):
         tmp = self.find(Node(self.lca(node1, node2)))
-
         return tmp and node1 != tmp and node2 != tmp
     
     def farthest_child(self, node):
@@ -86,18 +85,11 @@ class Tree:
                 self.add(self.find(Node(i[0])), Node(i[1]))
         
     def is_ancestor(self, node1, node2):
-        if node1 == None or node2 == None:
-            return None
-        for parent in node1.parents:
-            if  parent == node2:
-                return True
-            else:
-                self.is_ancestor(node1, node2.parents[i])
+        if node1 == None or node2 == []:
             return False
+        if node1 in [j for x in node2 for j in x.parents]:
+            return True
+        return self.is_ancestor(node1, [j for x in node2 for j in x.parents])
     
     def is_siblings(self,node1, node2):
-        parent1 = node1.parents[0]
-        parent2 = node2.parentsp[0]
-        if parent1 == parent2:
-            return True
-        return False
+        return (node1 in [x for j in node2.parents for x in j.children]) or (node2 in [x for j in node1.parents for x in j.children])

@@ -48,7 +48,39 @@ home_layout = dbc.Container(
             dbc.Col(html.Div(id='output-lca', className="text-info"), width=2),
         ]),
         dbc.Row([
-            dbc.Col(html.Label("Check Relationship Between Two Nodes:"), width=3),
+            dbc.Col(html.Label("Check if one is the Ancestor of the other one:"), width=3),
+            dbc.Col(
+                dbc.Input(id='input-anc-node1', type='text', placeholder='Ancestor node', className="form-control-plaintext mb-2"),
+                width=1
+            ),
+            dbc.Col(
+                dbc.Input(id='input-anc-node2', type='text', placeholder='Child node', className="form-control-plaintext mb-2"),
+                width=1
+            ),
+            dbc.Col(
+                html.Button('Check Ancestor', id='anc-button', className="btn btn-primary mb-2"),
+                width=2
+            ),
+            dbc.Col(html.Div(id='output-anc', className="text-info"), width=2),
+        ]),
+        dbc.Row([
+            dbc.Col(html.Label("Check if two nodes are Siblings:"), width=3),
+            dbc.Col(
+                dbc.Input(id='input-sib-node1', type='text', placeholder='First node', className="form-control-plaintext mb-2"),
+                width=1
+            ),
+            dbc.Col(
+                dbc.Input(id='input-sib-node2', type='text', placeholder='Sencond node', className="form-control-plaintext mb-2"),
+                width=1
+            ),
+            dbc.Col(
+                html.Button('Check Siblings', id='sib-button', className="btn btn-primary mb-2"),
+                width=2
+            ),
+            dbc.Col(html.Div(id='output-sib', className="text-info"), width=2),
+        ]),
+        dbc.Row([
+            dbc.Col(html.Label("Check Extended Relationship Between Two Nodes:"), width=3),
             dbc.Col(
                 dbc.Input(id='input-rel-node1', type='text', placeholder='First node', className="form-control-plaintext mb-2"),
                 width=1
@@ -65,7 +97,7 @@ home_layout = dbc.Container(
         ]),
         dbc.Row(html.Div(style={'height': '20px'})),
         dbc.Row([
-            dbc.Col(html.Label("Check if Node Exists:"), width=3),
+            dbc.Col(html.Label("Check if a Node Exists:"), width=3),
             dbc.Col(
                 dbc.Input(id='input-check-node', type='text', placeholder='Node name', className="form-control-plaintext mb-2"),
                 width=2
@@ -175,7 +207,7 @@ def home_callbacks(app):
         [Output('output-delete-node', 'children'),
         Output('family-tree-graph', 'figure')],
         [Input('delete-node-button', 'n_clicks')],
-        [dash.dependencies.State('input-delete-node', 'value')]
+        [State('input-delete-node', 'value')]
     )
     def delete_node(n_clicks, input_delete_node):
         if input_delete_node:
@@ -238,8 +270,8 @@ def home_callbacks(app):
     @app.callback(
         Output('output-lca', 'children'),
         [Input('lca-button', 'n_clicks')],
-        [dash.dependencies.State('input-node1', 'value'),
-        dash.dependencies.State('input-node2', 'value')]
+        [State('input-node1', 'value'),
+        State('input-node2', 'value')]
     )
     def update_lca_output(n_clicks, input_node1, input_node2):
         if input_node1 and input_node2:
@@ -247,11 +279,38 @@ def home_callbacks(app):
             return f"Lowest Common Ancestor of {input_node1} and {input_node2}: {lca_result}"
 
         return None
+        
+    @app.callback(
+        Output('output-anc', 'children'),
+        [Input('anc-button', 'n_clicks')],
+        [State('input-anc-node1', 'value'),
+        State('input-anc-node2', 'value')]
+    )
+    def update_anc_output(n_clicks, input_node1, input_node2):
+        if input_node1 and input_node2:
+            tmp = fam.is_ancestor(fam.find(Node(input_node1)), [fam.find(Node(input_node2))])
+            if tmp == False:
+                return f"{input_node1} is NOT an Ancestor of {input_node2}"
+            return f"{input_node1} is an Ancestor of {input_node2}"
+        
+    @app.callback(
+        Output('output-sib', 'children'),
+        [Input('sib-button', 'n_clicks')],
+        [State('input-sib-node1', 'value'),
+        State('input-sib-node2', 'value')]
+    )
+    def update_anc_output(n_clicks, input_node1, input_node2):
+        if input_node1 and input_node2:
+            tmp = fam.is_siblings(fam.find(Node(input_node1)), fam.find(Node(input_node2)))
+            if tmp == False:
+                return f"{input_node1} and {input_node2} are NOT siblings"
+            return f"{input_node1} and {input_node2} are siblings"
+        
 
     @app.callback(
         Output('output-farthest-child', 'children'),
         [Input('submit-button', 'n_clicks')],
-        [dash.dependencies.State('input-node', 'value')]
+        [State('input-node', 'value')]
     )
     def update_output(n_clicks, input_node):
         if input_node:
