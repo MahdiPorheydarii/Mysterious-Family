@@ -76,6 +76,7 @@ class Tree:
         self.size = 1
 
         pairs = [i.split() for i in pairs]
+        pairs = pairs[0:-1] if pairs[-1] == [] else pairs
 
         for i in pairs:
             tmp = self.find(Node(i[1]))
@@ -127,3 +128,18 @@ class Tree:
         if self.root in [x for j in node for x in j.parents]:
             return node
         return self.one_root([x for j in node for x in j.parents])
+
+    def to_txt(self):
+        with open("Tree.txt", "w") as file:
+            root = "_".join(self.root.name.split())
+            file.write(f"{root}\n")
+            
+            queue = deque([self.root])
+            while(queue):
+                node = queue.popleft()
+                for i in node.children:
+                    name = "_".join(i.name.split())
+                    parent = "_".join(node.name.split())
+                    file.write(f"{parent} {name}\n")
+                for i in node.children:
+                    queue.append(i)
