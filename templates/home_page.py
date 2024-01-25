@@ -161,6 +161,17 @@ home_layout = dbc.Container(
             ),
             dbc.Col(html.Div(id='output-size', className="text-info"), width=2),
         ]),
+        dbc.Row([
+            dbc.Col(
+                html.Label("Save Tree in a txt file:"),
+                width=3
+            ),
+            dbc.Col(
+                html.Button('Save in TXT', id='save-button', className="btn btn-info mb-2"),
+                width=2
+            ),
+            dbc.Col(html.Div(id='output-save', className="text-info"), width=2),
+        ]),
     ]
 )
 
@@ -344,3 +355,12 @@ def home_callbacks(app):
     def update_size(n_clicks):
         if n_clicks:
             return f"The two furthest nodes: {fam.two_furthest()}"
+    
+    @app.callback(
+        Output('output-save', 'children'),
+        [Input('save-button', 'n_clicks')],
+    )
+    def update_size(n_clicks):
+        if n_clicks:
+            fam.to_txt()
+            return f"Tree has been saved in Tree.txt"
