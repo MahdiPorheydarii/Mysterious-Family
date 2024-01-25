@@ -19,10 +19,12 @@ class Tree:
     def add(self, parent, child):
         parent.children.append(child)
         child.parents.append(parent)
-        self.size += 1
+        if not self.find(child):
+            self.size += 1
         self.trie.insert(child.name, child)
         if self.find(parent) == None:
             self.trie.insert(parent.name, parent)
+            self.size += 1
 
     def find(self, node):
         return self.trie.search(node.name)
