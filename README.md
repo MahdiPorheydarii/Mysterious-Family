@@ -73,10 +73,3 @@ Thank you for considering contributing to the Family Tree project!
 ## License
 
 This project is licensed under the [MIT License](LICENSE.md).
-
-## Contributors
-
-Thanks to the following individuals who have contributed to the development of this project:
-
-- [Mahdi Porheydari](https://github.com/MahdiPorheydarii)
-- [Mehrnoosh Mofidi](https://github.com/mehrmof)
